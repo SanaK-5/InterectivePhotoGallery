@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessible Interactive Photo Gallery</title>
+    <style>
+        /* Basic styling for the gallery */
+        #image {
+            width: 300px;
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+            border: 2px solid black;
+            margin-bottom: 20px;
+            background-color: #f3f3f3;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .gallery img {
+            width: 100px;
+            height: 75px;
+            margin: 10px;
+            cursor: pointer;
+            border: 2px solid #ccc;
+            transition: border 0.3s ease;
+        }
+
+        .gallery img:hover {
+            border: 2px solid #333;
+        }
+
+        /* Focus style for keyboard navigation */
+        .gallery img:focus {
+            outline: 2px solid blue;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Display area where the text and background image will change -->
+    <div id="image">
+        Hover over an image below to display here.
+    </div>
+
+    <!-- Gallery of images -->
+    <div class="gallery" id="gallery">
+        <img class="preview" src="C:\Users\Admin\Desktop\image1.jpg" alt="Beautiful Landscape 1" onmouseover="upDate(this)" onmouseout="undo()" onfocus="upDate(this)" onblur="undo()" tabindex="0">
+        <img class="preview" src="C:\Users\Admin\Desktop\image2.jpg" alt="Beautiful Landscape 2" onmouseover="upDate(this)" onmouseout="undo()" onfocus="upDate(this)" onblur="undo()" tabindex="0">
+        <img class="preview" src="C:\Users\Admin\Desktop\image3.jpg" alt="Beautiful Landscape 3" onmouseover="upDate(this)" onmouseout="undo()" onfocus="upDate(this)" onblur="undo()" tabindex="0">
+        <img class="preview" src="C:\Users\Admin\Desktop\image4.jpg" alt="Beautiful Landscape 4" onmouseover="upDate(this)" onmouseout="undo()" onfocus="upDate(this)" onblur="undo()" tabindex="0">
+        <img class="preview" src="C:\Users\Admin\Desktop\image5.jpg" alt="Beautiful Landscape 5" onmouseover="upDate(this)" onmouseout="undo()" onfocus="upDate(this)" onblur="undo()" tabindex="0">
+        <img class="preview" src="C:\Users\Admin\Desktop\image6.jpg" alt="Beautiful Landscape 6" onmouseover="upDate(this)" onmouseout="undo()" onfocus="upDate(this)" onblur="undo()" tabindex="0">
+    </div>
+
+    <!-- JavaScript to handle events -->
+    <script>
+        // Function that runs when the page is loaded
+        window.onload = function() {
+            console.log("Page has loaded.");
+            addTabFocus();
+        };
+
+        // Function to update the image div with the hovered/focused image's alt and src
+        function upDate(previewPic) {
+            console.log("Triggered event for image with alt: " + previewPic.alt);
+            
+            // Get the div with the ID 'image'
+            let imageDiv = document.getElementById('image');
+
+            // Change the background image to the source of the hovered image
+            imageDiv.style.backgroundImage = "url('" + previewPic.src + "')";
+
+            // Change the text to the alt text of the hovered image
+            imageDiv.innerHTML = previewPic.alt;
+        }
+
+        // Function to reset the image div when mouse leaves/loses focus
+        function undo() {
+            let imageDiv = document.getElementById('image');
+            imageDiv.style.backgroundImage = "url('')";
+            imageDiv.innerHTML = "Hover over an image below to display here.";
+        }
+
+        // Function to add tabindex to images for keyboard accessibility
+        function addTabFocus() {
+            console.log("Adding tabindex attribute for all images.");
+            let images = document.querySelectorAll('.preview');
+            for (let i = 0; i < images.length; i++) {
+                images[i].setAttribute('tabindex', '0'); // Allow keyboard focus
+            }
+        }
+    </script>
+
+</body>
+</html>
